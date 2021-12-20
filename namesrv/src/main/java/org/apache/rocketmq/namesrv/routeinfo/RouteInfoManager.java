@@ -432,7 +432,7 @@ public class RouteInfoManager {
 
         log.debug("pickupTopicRouteData {} {}", topic, topicRouteData);
 
-        if (foundBrokerData && foundQueueData) {
+        if (foundBrokerData) {
             return topicRouteData;
         }
 
