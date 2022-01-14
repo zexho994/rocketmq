@@ -31,6 +31,9 @@ public class NameServerAddressUtils {
         return INST_ENDPOINT_PATTERN.matcher(endpoint).matches();
     }
 
+    /**
+     * 对namesrv的网络地址进行切割来
+     */
     public static String parseInstanceIdFromEndpoint(String endpoint) {
         if (StringUtils.isEmpty(endpoint)) {
             return null;

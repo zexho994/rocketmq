@@ -16,8 +16,9 @@
  */
 package org.apache.rocketmq.client;
 
-import java.util.List;
 import org.apache.rocketmq.common.message.MessageExt;
+
+import java.util.List;
 
 public class QueryResult {
     private final long indexLastUpdateTimestamp;
@@ -39,6 +40,6 @@ public class QueryResult {
     @Override
     public String toString() {
         return "QueryResult [indexLastUpdateTimestamp=" + indexLastUpdateTimestamp + ", messageList="
-            + messageList + "]";
+                + messageList + "]";
     }
 }

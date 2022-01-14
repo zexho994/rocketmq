@@ -16,8 +16,9 @@
  */
 package org.apache.rocketmq.client.consumer.listener;
 
-import java.util.List;
 import org.apache.rocketmq.common.message.MessageExt;
+
+import java.util.List;
 
 /**
  * A MessageListenerConcurrently object is used to receive asynchronously delivered messages concurrently
@@ -31,5 +32,5 @@ public interface MessageListenerConcurrently extends MessageListener {
      * @return The consume status
      */
     ConsumeConcurrentlyStatus consumeMessage(final List<MessageExt> msgs,
-        final ConsumeConcurrentlyContext context);
+                                             final ConsumeConcurrentlyContext context);
 }

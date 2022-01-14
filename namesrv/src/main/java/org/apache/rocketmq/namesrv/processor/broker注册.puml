@@ -1,0 +1,12 @@
+@startuml
+autonumber
+registerBroker -> registerBroker : 保存broker name到在clusterAddrTable中
+note right : clusterAddrTable = Map<cluster name, Set<broker name>>
+registerBroker -> registerBroker : 保存broker地址到brokerAddrTable中
+note right : brokerAddrTable = Map<broker name,broker data>
+registerBroker -> registerBroker : 保存topic信息到topicQueueTable中
+note right : topicQueueTable = Map<topic,List<QueueData>>
+registerBroker -> registerBroker : 保存broker到brokerLiveTable中
+note right : brokerLiveTable = Map<broker addr,broker live info>
+
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+
+:定义topic为RMQ_SYS_TRANS_HALF_TOPIC;
+:获取topic的messageQueues;
+:for queue : messageQueues;
+:获取当前时间;
+:获取OpQueue;
+:获取queue的消费offset;
+:获取opQueue的消费offset;
+
+@enduml

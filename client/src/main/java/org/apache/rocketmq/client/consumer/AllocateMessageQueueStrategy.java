@@ -16,11 +16,18 @@
  */
 package org.apache.rocketmq.client.consumer;
 
-import java.util.List;
 import org.apache.rocketmq.common.message.MessageQueue;
+
+import java.util.List;
 
 /**
  * Strategy Algorithm for message allocating between consumers
+ * 消息队列分配算法：
+ * {@link org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely} 平均分配,推荐
+ * {@link org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragelyByCircle} 平均轮询分配，推荐
+ * {@link org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueConsistentHash} 一致性hash,不推荐
+ * {@link org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueByConfig} 根据配置，为每一个消费者配置固定的消息队列
+ * {@link org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueByMachineRoom} 根据Broker部署机房名分配
  */
 public interface AllocateMessageQueueStrategy {
 
@@ -28,16 +35,16 @@ public interface AllocateMessageQueueStrategy {
      * Allocating by consumer id
      *
      * @param consumerGroup current consumer group
-     * @param currentCID current consumer id
-     * @param mqAll message queue set in current topic
-     * @param cidAll consumer set in current consumer group
+     * @param currentCID    current consumer id
+     * @param mqAll         message queue set in current topic
+     * @param cidAll        consumer set in current consumer group
      * @return The allocate result of given strategy
      */
     List<MessageQueue> allocate(
-        final String consumerGroup,
-        final String currentCID,
-        final List<MessageQueue> mqAll,
-        final List<String> cidAll
+            final String consumerGroup,
+            final String currentCID,
+            final List<MessageQueue> mqAll,
+            final List<String> cidAll
     );
 
     /**

@@ -201,72 +201,36 @@ public class BrokerConfig {
         return traceOn;
     }
 
-    public void setTraceOn(final boolean traceOn) {
-        this.traceOn = traceOn;
-    }
-
     public long getStartAcceptSendRequestTimeStamp() {
         return startAcceptSendRequestTimeStamp;
-    }
-
-    public void setStartAcceptSendRequestTimeStamp(final long startAcceptSendRequestTimeStamp) {
-        this.startAcceptSendRequestTimeStamp = startAcceptSendRequestTimeStamp;
     }
 
     public long getWaitTimeMillsInSendQueue() {
         return waitTimeMillsInSendQueue;
     }
 
-    public void setWaitTimeMillsInSendQueue(final long waitTimeMillsInSendQueue) {
-        this.waitTimeMillsInSendQueue = waitTimeMillsInSendQueue;
-    }
-
     public long getConsumerFallbehindThreshold() {
         return consumerFallbehindThreshold;
-    }
-
-    public void setConsumerFallbehindThreshold(final long consumerFallbehindThreshold) {
-        this.consumerFallbehindThreshold = consumerFallbehindThreshold;
     }
 
     public boolean isBrokerFastFailureEnable() {
         return brokerFastFailureEnable;
     }
 
-    public void setBrokerFastFailureEnable(final boolean brokerFastFailureEnable) {
-        this.brokerFastFailureEnable = brokerFastFailureEnable;
-    }
-
     public long getWaitTimeMillsInPullQueue() {
         return waitTimeMillsInPullQueue;
-    }
-
-    public void setWaitTimeMillsInPullQueue(final long waitTimeMillsInPullQueue) {
-        this.waitTimeMillsInPullQueue = waitTimeMillsInPullQueue;
     }
 
     public boolean isDisableConsumeIfConsumerReadSlowly() {
         return disableConsumeIfConsumerReadSlowly;
     }
 
-    public void setDisableConsumeIfConsumerReadSlowly(final boolean disableConsumeIfConsumerReadSlowly) {
-        this.disableConsumeIfConsumerReadSlowly = disableConsumeIfConsumerReadSlowly;
-    }
-
     public boolean isSlaveReadEnable() {
         return slaveReadEnable;
     }
 
-    public void setSlaveReadEnable(final boolean slaveReadEnable) {
-        this.slaveReadEnable = slaveReadEnable;
-    }
-
     public int getRegisterBrokerTimeoutMills() {
         return registerBrokerTimeoutMills;
-    }
-
-    public void setRegisterBrokerTimeoutMills(final int registerBrokerTimeoutMills) {
-        this.registerBrokerTimeoutMills = registerBrokerTimeoutMills;
     }
 
     public String getRegionId() {

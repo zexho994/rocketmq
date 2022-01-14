@@ -65,7 +65,7 @@ public class NamespaceUtil {
      * (4) (%RETRY%MQ_INST_XX2%GID_XXX2, MQ_INST_XX3) --> %RETRY%MQ_INST_XX2%GID_XXX2
      *
      * @param resourceWithNamespace, topic/groupId with namespace.
-     * @param namespace, namespace to be unpacked.
+     * @param namespace,             namespace to be unpacked.
      * @return topic/groupId without namespace.
      */
     public static String withoutNamespace(String resourceWithNamespace, String namespace) {
@@ -93,10 +93,12 @@ public class NamespaceUtil {
         String resourceWithoutRetryAndDLQ = withOutRetryAndDLQ(resourceWithOutNamespace);
         StringBuilder stringBuilder = new StringBuilder();
 
+        // 增加重试的标记
         if (isRetryTopic(resourceWithOutNamespace)) {
             stringBuilder.append(MixAll.RETRY_GROUP_TOPIC_PREFIX);
         }
 
+        // 增加延迟的标记
         if (isDLQTopic(resourceWithOutNamespace)) {
             stringBuilder.append(MixAll.DLQ_GROUP_TOPIC_PREFIX);
         }
@@ -121,9 +123,9 @@ public class NamespaceUtil {
         }
 
         return new StringBuffer()
-            .append(MixAll.RETRY_GROUP_TOPIC_PREFIX)
-            .append(wrapNamespace(namespace, consumerGroup))
-            .toString();
+                .append(MixAll.RETRY_GROUP_TOPIC_PREFIX)
+                .append(wrapNamespace(namespace, consumerGroup))
+                .toString();
     }
 
     public static String getNamespaceFromResource(String resource) {

@@ -25,8 +25,10 @@ public class AppendMessageResult {
     // Return code
     private AppendMessageStatus status;
     // Where to start writing
+    // 当前写的位置
     private long wroteOffset;
     // Write Bytes
+    // 消息的大小
     private int wroteBytes;
     // Message ID
     private String msgId;
