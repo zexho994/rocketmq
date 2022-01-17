@@ -1,0 +1,41 @@
+@startuml
+!theme vibrant
+autonumber
+participant namesrv
+
+==master 启动==
+master -> master ++: 启动
+create control AcceptSocketService
+note right of AcceptSocketService : 负责监听&处理slave的连接请求
+master -> AcceptSocketService : 启动slave监听线程
+group 注册broker信息
+master -> namesrv ++: 心跳
+namesrv -> namesrv : 保存broker信息,brokerId=0
+namesrv --> master --: ok
+end
+deactivate
+==slave 启动==
+slave -> slave ++: 启动
+group 注册broker & 获取master路由信息
+slave -> namesrv ++: 心跳
+namesrv -> namesrv : 保存broker信息,brokerId>0
+return master route info
+end
+group 与master建立连接
+slave -> slave : 创建HAClient
+slave -> AcceptSocketService ++: connect master
+AcceptSocketService -> AcceptSocketService : 封装socketChannel成HAConnection
+AcceptSocketService --> master --: 保存HAConnection
+end
+==数据同步==
+loop 每5s执行一次
+    slave -> master ++: 汇报slave当前的commitlog offset
+    master -> master : 比较slave的offset和master的offset
+    opt master offset > slave offset
+        master -> slave : 根据offset返回未同步的数据
+        slave -> slave : 保存数据到commitlog
+    else master <= slave offset
+    end
+end
+
+@enduml

@@ -1,0 +1,70 @@
+@startuml
+!theme vibrant
+
+class HAService
+
+class HAService$AcceptSocketService {
+    - SocketAddress socketAddressListen
+    - ServerSocketChannel serverSocketChannel
+    - Selector selector
+    + beginAccept()
+    + shutdown()
+    + run()
+}
+note bottom of HAService$AcceptSocketService
+    master监听slave的连接
+end note
+
+class HAService$GroupTransferService
+class HAService$HAClient{
+    - AtomicReference masterAddress
+    - ByteBuffer reportOffset
+    - SocketChannel socketChannel
+    - Selector selector
+    - long lastWriteTimestamp
+    - long currentReportedOffset = 0
+    - int dispatchPosition
+    + boolean connectMaster()
+    + isTimeToReportOffset()
+    + reportSlaveMaxOffset()
+    + processReadEvent()
+}
+note bottom of HAService$HAClient : slave特有
+note left of HAService$HAClient::connectMaster
+    slave 连接到 master
+end note
+note left of HAService$HAClient::isTimeToReportOffset
+    判断是否需要向Master返回当前待拉取偏移量
+end note
+note left of HAService$HAClient::isTimeToReportOffset
+    判断是否需要向Master返回当前待拉取偏移量
+end note
+note left of HAService$HAClient::reportSlaveMaxOffset
+    向Master反馈拉取偏移量，意义有两个:
+    1. 对于Slave，是发送下次待拉取的偏移量
+    2. 对于Master，既是slave的拉取请求，也是slave的同步ack确认
+end note
+note left of HAService$HAClient::processReadEvent
+    处理Master传回的消息数据
+end note
+
+class HAConnection
+note right of HAConnection : 主从服务器的SocketChannel的封装
+class HAConnection$WriteSocketService
+note bottom of HAConnection$WriteSocketService
+    master 发送消息数据 -> slave
+end note
+class HAConnection$ReadSocketService
+note bottom of HAConnection$ReadSocketService
+    master 接收 slave 的report消息
+end note
+
+HAService ..> HAService$AcceptSocketService : 内部类
+HAService ..> HAService$GroupTransferService : 内部类
+HAService ..> HAService$HAClient : 内部类
+HAService --> HAConnection
+HAConnection ..> HAConnection$ReadSocketService : 内部类
+HAConnection ..> HAConnection$WriteSocketService : 内部类
+
+
+@enduml
